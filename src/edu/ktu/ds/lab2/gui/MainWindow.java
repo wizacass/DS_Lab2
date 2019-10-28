@@ -60,8 +60,8 @@ import java.util.concurrent.SynchronousQueue;
  *
  * @author darius.matulis@ktu.lt
  */
-public class MainWindow extends BorderPane implements EventHandler<ActionEvent> {
-
+public class MainWindow extends BorderPane implements EventHandler<ActionEvent>
+{
     private static final ResourceBundle MESSAGES = ResourceBundle.getBundle("edu.ktu.ds.lab2.gui.messages");
 
     private static final int TF_WIDTH = 120;
@@ -90,7 +90,8 @@ public class MainWindow extends BorderPane implements EventHandler<ActionEvent> 
     private double shuffleCoef;
     private final String[] errors;
 
-    public MainWindow(Stage stage) {
+    public MainWindow(Stage stage)
+    {
         this.stage = stage;
         errors = new String[]{
                 MESSAGES.getString("badSetSize"),
@@ -101,7 +102,8 @@ public class MainWindow extends BorderPane implements EventHandler<ActionEvent> 
         initComponents();
     }
 
-    private void initComponents() {
+    private void initComponents()
+    {
         //======================================================================
         // Sudaromas rezultatų išvedimo VBox klasės objektas, kuriame
         // talpinamas Label ir TextArea klasės objektai
@@ -182,30 +184,44 @@ public class MainWindow extends BorderPane implements EventHandler<ActionEvent> 
         paneBottom.add(paneParam2, 2, 0);
         paneBottom.alignmentProperty().bind(new SimpleObjectProperty<>(Pos.CENTER));
 
-        mainWindowMenu = new MainWindowMenu() {
+        mainWindowMenu = new MainWindowMenu()
+        {
             @Override
-            public void handle(ActionEvent ae) {
+            public void handle(ActionEvent ae)
+            {
                 Region region = (Region) taOutput.lookup(".content");
                 region.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
 
-                try {
+                try
+                {
                     Object source = ae.getSource();
-                    if (source.equals(mainWindowMenu.getMenus().get(0).getItems().get(0))) {
+                    if (source.equals(mainWindowMenu.getMenus().get(0).getItems().get(0)))
+                    {
                         fileChooseMenu();
-                    } else if (source.equals(mainWindowMenu.getMenus().get(0).getItems().get(1))) {
+                    }
+                    else if (source.equals(mainWindowMenu.getMenus().get(0).getItems().get(1)))
+                    {
                         KsGui.ounerr(taOutput, MESSAGES.getString("notImplemented"));
-                    } else if (source.equals(mainWindowMenu.getMenus().get(0).getItems().get(3))) {
+                    }
+                    else if (source.equals(mainWindowMenu.getMenus().get(0).getItems().get(3)))
+                    {
                         System.exit(0);
-                    } else if (source.equals(mainWindowMenu.getMenus().get(1).getItems().get(0))) {
+                    }
+                    else if (source.equals(mainWindowMenu.getMenus().get(1).getItems().get(0)))
+                    {
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
                         alert.initStyle(StageStyle.UTILITY);
                         alert.setTitle(MESSAGES.getString("menuItem21"));
                         alert.setHeaderText(MESSAGES.getString("author"));
                         alert.showAndWait();
                     }
-                } catch (ValidationException e) {
+                }
+                catch (ValidationException e)
+                {
                     KsGui.ounerr(taOutput, e.getMessage());
-                } catch (Exception e) {
+                }
+                catch (Exception e)
+                {
                     KsGui.ounerr(taOutput, MESSAGES.getString("systemError"));
                     e.printStackTrace(System.out);
                 }
@@ -230,7 +246,8 @@ public class MainWindow extends BorderPane implements EventHandler<ActionEvent> 
         cmbTreeType.setOnAction(this);
     }
 
-    private void appearance() {
+    private void appearance()
+    {
         paneButtons.setBackground(new Background(new BackgroundFill(Color.rgb(112, 162, 255)/* Blyškiai mėlyna */, CornerRadii.EMPTY, Insets.EMPTY)));
         paneParam1.setBackground(new Background(new BackgroundFill(Color.rgb(204, 255, 204)/* Šviesiai žalia */, CornerRadii.EMPTY, Insets.EMPTY)));
         paneParam1.getTfOfTable().get(2).setEditable(false);
@@ -245,8 +262,10 @@ public class MainWindow extends BorderPane implements EventHandler<ActionEvent> 
     }
 
     @Override
-    public void handle(ActionEvent ae) {
-        try {
+    public void handle(ActionEvent ae)
+    {
+        try
+        {
             System.gc();
             System.gc();
             System.gc();
@@ -254,51 +273,79 @@ public class MainWindow extends BorderPane implements EventHandler<ActionEvent> 
             region.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
 
             Object source = ae.getSource();
-            if (source instanceof Button) {
+            if (source instanceof Button)
+            {
                 handleButtons(source);
-            } else if (source instanceof ComboBox && source.equals(cmbTreeType)) {
+            }
+            else if (source instanceof ComboBox && source.equals(cmbTreeType))
+            {
                 disableButtons(true);
             }
-        } catch (ValidationException e) {
-            if (e.getCode() >= 0 && e.getCode() <= 3) {
+        }
+        catch (ValidationException e)
+        {
+            if (e.getCode() >= 0 && e.getCode() <= 3)
+            {
                 KsGui.ounerr(taOutput, errors[e.getCode()] + ": " + e.getMessage());
-                if (e.getCode() == 2) {
+                if (e.getCode() == 2)
+                {
                     paneParam1.getTfOfTable().get(0).setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
                     paneParam1.getTfOfTable().get(1).setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
                 }
-            } else if (e.getCode() == 4) {
+            }
+            else if (e.getCode() == 4)
+            {
                 KsGui.ounerr(taOutput, MESSAGES.getString("allSetIsPrinted"));
-            } else {
+            }
+            else
+            {
                 KsGui.ounerr(taOutput, e.getMessage());
             }
-        } catch (UnsupportedOperationException e) {
+        }
+        catch (UnsupportedOperationException e)
+        {
             KsGui.ounerr(taOutput, e.getLocalizedMessage());
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             KsGui.ounerr(taOutput, MESSAGES.getString("systemError"));
             e.printStackTrace(System.out);
         }
     }
 
-    private void handleButtons(Object source) throws ValidationException {
-        if (source.equals(paneButtons.getButtons().get(0))) {
+    private void handleButtons(Object source) throws ValidationException
+    {
+        if (source.equals(paneButtons.getButtons().get(0)))
+        {
             treeGeneration(null);
-        } else if (source.equals(paneButtons.getButtons().get(1))) {
+        }
+        else if (source.equals(paneButtons.getButtons().get(1)))
+        {
             treeIteration();
-        } else if (source.equals(paneButtons.getButtons().get(2))) {
+        }
+        else if (source.equals(paneButtons.getButtons().get(2)))
+        {
             treeAdd();
-        } else if (source.equals(paneButtons.getButtons().get(3))) {
+        }
+        else if (source.equals(paneButtons.getButtons().get(3)))
+        {
             treeEfficiency();
-        } else if (source.equals(paneButtons.getButtons().get(4))) {
+        }
+        else if (source.equals(paneButtons.getButtons().get(4)))
+        {
             treeRemove();
-        } else if (source.equals(paneButtons.getButtons().get(5))
-                || source.equals(paneButtons.getButtons().get(6))) {
+        }
+        else if (source.equals(paneButtons.getButtons().get(5))
+                || source.equals(paneButtons.getButtons().get(6)))
+        {
             KsGui.setFormatStartOfLine(true);
             KsGui.ounerr(taOutput, MESSAGES.getString("notImplemented"));
             KsGui.setFormatStartOfLine(false);
         }
     }
 
-    private void treeGeneration(String filePath) throws ValidationException {
+    private void treeGeneration(String filePath) throws ValidationException
+    {
         // Nuskaitomi parametrai
         readTreeParameters();
         // Sukuriamas aibės objektas, priklausomai nuo medžio pasirinkimo
@@ -307,14 +354,18 @@ public class MainWindow extends BorderPane implements EventHandler<ActionEvent> 
 
         Car[] carsArray;
         // Jei failas nenurodytas - generuojama
-        if (filePath == null) {
+        if (filePath == null)
+        {
             carsArray = carsGenerator.generateShuffle(sizeOfGenSet, sizeOfInitialSubSet, shuffleCoef);
             paneParam1.getTfOfTable().get(2).setText(String.valueOf(sizeOfLeftSubSet));
-        } else { // Skaitoma is failo
+        }
+        else
+        { // Skaitoma is failo
             carsSet.load(filePath);
             carsArray = new Car[carsSet.size()];
             int i = 0;
-            for (Object o : carsSet.toArray()) {
+            for (Object o : carsSet.toArray())
+            {
                 carsArray[i++] = (Car) o;
             }
             // Skaitant iš failo išmaišoma standartiniu Collections.shuffle metodu.
@@ -335,7 +386,8 @@ public class MainWindow extends BorderPane implements EventHandler<ActionEvent> 
         disableButtons(false);
     }
 
-    private void treeAdd() throws ValidationException {
+    private void treeAdd() throws ValidationException
+    {
         KsGui.setFormatStartOfLine(true);
         Car car = carsGenerator.takeCar();
         carsSet.add(car);
@@ -345,12 +397,16 @@ public class MainWindow extends BorderPane implements EventHandler<ActionEvent> 
         KsGui.setFormatStartOfLine(false);
     }
 
-    private void treeRemove() {
+    private void treeRemove()
+    {
         KsGui.setFormatStartOfLine(true);
-        if (carsSet.isEmpty()) {
+        if (carsSet.isEmpty())
+        {
             KsGui.ounerr(taOutput, MESSAGES.getString("setIsEmpty"));
             KsGui.oun(taOutput, carsSet.toVisualizedString(tfDelimiter.getText()));
-        } else {
+        }
+        else
+        {
             int nr = new Random().nextInt(carsSet.size());
             Car car = (Car) carsSet.toArray()[nr];
             carsSet.remove(car);
@@ -360,17 +416,22 @@ public class MainWindow extends BorderPane implements EventHandler<ActionEvent> 
         KsGui.setFormatStartOfLine(false);
     }
 
-    private void treeIteration() {
+    private void treeIteration()
+    {
         KsGui.setFormatStartOfLine(true);
-        if (carsSet.isEmpty()) {
+        if (carsSet.isEmpty())
+        {
             KsGui.ounerr(taOutput, MESSAGES.getString("setIsEmpty"));
-        } else {
+        }
+        else
+        {
             KsGui.oun(taOutput, carsSet, MESSAGES.getString("setIterator"));
         }
         KsGui.setFormatStartOfLine(false);
     }
 
-    private void treeEfficiency() {
+    private void treeEfficiency()
+    {
         KsGui.setFormatStartOfLine(true);
         KsGui.oun(taOutput, "", MESSAGES.getString("benchmark"));
         paneBottom.setDisable(true);
@@ -383,14 +444,18 @@ public class MainWindow extends BorderPane implements EventHandler<ActionEvent> 
         // Ši gija paima rezultatus iš greitaveikos tyrimo gijos ir išveda
         // juos į taOutput. Gija baigia darbą kai gaunama FINISH_COMMAND
         new Thread(() -> {
-            try {
+            try
+            {
                 String result;
                 while (!(result = resultsLogger.take())
-                        .equals(SimpleBenchmark.FINISH_COMMAND)) {
+                        .equals(SimpleBenchmark.FINISH_COMMAND))
+                {
                     KsGui.ou(taOutput, result);
                     semaphore.release();
                 }
-            } catch (InterruptedException e) {
+            }
+            catch (InterruptedException e)
+            {
                 Thread.currentThread().interrupt();
             }
 
@@ -403,9 +468,11 @@ public class MainWindow extends BorderPane implements EventHandler<ActionEvent> 
         new Thread(simpleBenchmark::startBenchmark, "Greitaveikos_tyrimo_gija").start();
     }
 
-    private void readTreeParameters() throws ValidationException {
+    private void readTreeParameters() throws ValidationException
+    {
         // Truputėlis kosmetikos..
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 2; i++)
+        {
             paneParam1.getTfOfTable().get(i).setStyle("-fx-control-inner-background: white; ");
             paneParam1.getTfOfTable().get(i).applyCss();
         }
@@ -414,7 +481,8 @@ public class MainWindow extends BorderPane implements EventHandler<ActionEvent> 
         // atskirti kuriame JTextfield'e ivyko klaida, panaudojama nuosava
         // situacija MyException
         int i = 0;
-        try {
+        try
+        {
             // Pakeitimas (replace) tam, kad sukelti situaciją esant
             // neigiamam skaičiui        
             sizeOfGenSet = Integer.parseInt(paneParam1.getParametersOfTable().get(i).replace("-", "x"));
@@ -422,14 +490,18 @@ public class MainWindow extends BorderPane implements EventHandler<ActionEvent> 
             sizeOfLeftSubSet = sizeOfGenSet - sizeOfInitialSubSet;
             ++i;
             shuffleCoef = Double.parseDouble(paneParam1.getParametersOfTable().get(++i).replace("-", "x"));
-        } catch (NumberFormatException e) {
+        }
+        catch (NumberFormatException e)
+        {
             // Galima ir taip: pagauti exception'ą ir vėl mesti
             throw new ValidationException(paneParam1.getParametersOfTable().get(i), e, i);
         }
     }
 
-    private void createTree() throws ValidationException {
-        switch (cmbTreeType.getSelectionModel().getSelectedIndex()) {
+    private void createTree() throws ValidationException
+    {
+        switch (cmbTreeType.getSelectionModel().getSelectedIndex())
+        {
             case 0:
                 carsSet = new ParsableBstSet<>(Car::new);
                 break;
@@ -442,15 +514,19 @@ public class MainWindow extends BorderPane implements EventHandler<ActionEvent> 
         }
     }
 
-    private void disableButtons(boolean disable) {
-        for (int i : new int[]{1, 2, 4, 5, 6}) {
-            if (i < paneButtons.getButtons().size() && paneButtons.getButtons().get(i) != null) {
+    private void disableButtons(boolean disable)
+    {
+        for (int i : new int[]{1, 2, 4, 5, 6})
+        {
+            if (i < paneButtons.getButtons().size() && paneButtons.getButtons().get(i) != null)
+            {
                 paneButtons.getButtons().get(i).setDisable(disable);
             }
         }
     }
 
-    private void fileChooseMenu() throws ValidationException {
+    private void fileChooseMenu() throws ValidationException
+    {
         FileChooser fc = new FileChooser();
         // Papildoma mūsų sukurtais filtrais
         fc.getExtensionFilters().addAll(
@@ -460,12 +536,14 @@ public class MainWindow extends BorderPane implements EventHandler<ActionEvent> 
         fc.setTitle((MESSAGES.getString("menuItem11")));
         fc.setInitialDirectory(new File(System.getProperty("user.dir")));
         File file = fc.showOpenDialog(stage);
-        if (file != null) {
+        if (file != null)
+        {
             treeGeneration(file.getAbsolutePath());
         }
     }
 
-    public static void createAndShowGui(Stage stage) {
+    public static void createAndShowGui(Stage stage)
+    {
         Locale.setDefault(Locale.US); // Suvienodiname skaičių formatus
         MainWindow window = new MainWindow(stage);
         stage.setScene(new Scene(window, 1100, 650));

@@ -11,8 +11,8 @@ import java.util.Optional;
 import java.util.function.Function;
 
 public class ParsableBstSet<E extends Parsable<E>> extends BstSet<E>
-        implements ParsableSortedSet<E> {
-
+        implements ParsableSortedSet<E>
+{
     private final Function<String, E> createFunction; // funkcija bazinio objekto kūrimui
 
     /**
@@ -20,7 +20,8 @@ public class ParsableBstSet<E extends Parsable<E>> extends BstSet<E>
      *
      * @param createFunction
      */
-    public ParsableBstSet(Function<String, E> createFunction) {
+    public ParsableBstSet(Function<String, E> createFunction)
+    {
         super();
         this.createFunction = createFunction;
     }
@@ -31,7 +32,8 @@ public class ParsableBstSet<E extends Parsable<E>> extends BstSet<E>
      * @param createFunction
      * @param c
      */
-    public ParsableBstSet(Function<String, E> createFunction, Comparator<? super E> c) {
+    public ParsableBstSet(Function<String, E> createFunction, Comparator<? super E> c)
+    {
         super(c);
         this.createFunction = createFunction;
     }
@@ -42,7 +44,8 @@ public class ParsableBstSet<E extends Parsable<E>> extends BstSet<E>
      * @param dataString
      */
     @Override
-    public void add(String dataString) {
+    public void add(String dataString)
+    {
         super.add(createElement(dataString));
     }
 
@@ -52,25 +55,33 @@ public class ParsableBstSet<E extends Parsable<E>> extends BstSet<E>
      * @param filePath
      */
     @Override
-    public void load(String filePath) {
-        if (filePath == null || filePath.length() == 0) {
+    public void load(String filePath)
+    {
+        if (filePath == null || filePath.length() == 0)
+        {
             return;
         }
 
         clear();
-        try (BufferedReader fReader = Files.newBufferedReader(Paths.get(filePath), Charset.defaultCharset())) {
+        try (BufferedReader fReader = Files.newBufferedReader(Paths.get(filePath), Charset.defaultCharset()))
+        {
             fReader.lines()
                     .map(String::trim)
                     .filter(line -> !line.isEmpty())
                     .forEach(this::add);
-        } catch (FileNotFoundException e) {
+        }
+        catch (FileNotFoundException e)
+        {
             Ks.ern("Tinkamas duomenų failas " + filePath + " nerastas");
-        } catch (IOException e) {
+        }
+        catch (IOException e)
+        {
             Ks.ern("Failo " + filePath + " skaitymo klaida");
         }
     }
 
-    protected E createElement(String data) {
+    protected E createElement(String data)
+    {
         return Optional.ofNullable(createFunction)
                 .map(f -> f.apply(data))
                 .orElseThrow(() -> new IllegalStateException("Nenustatyta aibės elementų kūrimo funkcija"));

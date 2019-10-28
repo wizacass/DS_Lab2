@@ -5,8 +5,8 @@ package edu.ktu.ds.lab2.utils;
  *
  * @param <E> Aibės elemento duomenų tipas
  */
-public interface Set<E> extends Iterable<E> {
-
+public interface Set<E> extends Iterable<E>
+{
     //Patikrinama ar aibė tuščia.
     boolean isEmpty();
 

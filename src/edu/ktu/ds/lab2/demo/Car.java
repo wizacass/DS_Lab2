@@ -11,7 +11,6 @@ import java.util.*;
  */
 public final class Car implements Parsable<Car>
 {
-
     // bendri duomenys visiems automobiliams (visai klasei)
     private static final int minYear = 1990;
     private static final int currentYear = LocalDate.now().getYear();
@@ -196,7 +195,6 @@ public final class Car implements Parsable<Car>
     // Automobilis klases objektų gamintojas (builder'is)
     public static class Builder
     {
-
         private final static Random RANDOM = new Random(1949);  // Atsitiktinių generatorius
         private final static String[][] MODELS = { // galimų automobilių markių ir jų modelių masyvas
                 {"Mazda", "121", "323", "626", "MX6"},

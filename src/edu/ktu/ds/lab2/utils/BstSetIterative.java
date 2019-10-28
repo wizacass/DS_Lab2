@@ -8,13 +8,15 @@ import java.util.Comparator;
  * @param <E>
  * @author darius
  */
-public class BstSetIterative<E extends Comparable<E>> extends BstSet<E> implements SortedSet<E> {
-
-    public BstSetIterative() {
+public class BstSetIterative<E extends Comparable<E>> extends BstSet<E> implements SortedSet<E>
+{
+    public BstSetIterative()
+    {
         super();
     }
 
-    public BstSetIterative(Comparator<? super E> c) {
+    public BstSetIterative(Comparator<? super E> c)
+    {
         super(c);
     }
 
@@ -24,33 +26,47 @@ public class BstSetIterative<E extends Comparable<E>> extends BstSet<E> implemen
      * @param element
      */
     @Override
-    public void add(E element) {
-        if (element == null) {
+    public void add(E element)
+    {
+        if (element == null)
+        {
             throw new IllegalArgumentException("Element is null in add(E element)");
         }
 
-        if (root == null) {
-            root = new BstNode<>(element);
-        } else {
+        if (root == null)
+        {
+            root = new BstNode<E>(element);
+        }
+        else
+        {
             BstNode<E> current = root;
             BstNode<E> parent = null;
-            while (current != null) {
+            while (current != null)
+            {
                 parent = current;
                 int cmp = c.compare(element, current.element);
-                if (cmp < 0) {
+                if (cmp < 0)
+                {
                     current = current.left;
-                } else if (cmp > 0) {
+                }
+                else if (cmp > 0)
+                {
                     current = current.right;
-                } else {
+                }
+                else
+                {
                     return;
                 }
             }
 
             int cmp = c.compare(element, parent.element);
-            if (cmp < 0) {
-                parent.left = new BstNode<>(element);
-            } else if (cmp > 0) {
-                parent.right = new BstNode<>(element);
+            if (cmp < 0)
+            {
+                parent.left = new BstNode<E>(element);
+            }
+            else if (cmp > 0)
+            {
+                parent.right = new BstNode<E>(element);
             }
         }
         size++;

@@ -5,7 +5,6 @@ import edu.ktu.ds.lab2.utils.Set;
 
 public class CarMarket
 {
-
     public static Set<String> duplicateCarMakes(Car[] cars)
     {
         Set<Car> uni = new BstSet<>(Car.byMake);

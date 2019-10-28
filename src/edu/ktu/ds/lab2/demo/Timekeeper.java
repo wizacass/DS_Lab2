@@ -10,7 +10,6 @@ import java.util.concurrent.Semaphore;
  */
 public class Timekeeper
 {
-
     private int[] tyrimoImtis;
     private long startTime;
     private final long startTimeTot;

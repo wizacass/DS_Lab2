@@ -2,8 +2,8 @@ package edu.ktu.ds.lab2.utils;
 
 import java.util.Iterator;
 
-public interface SortedSet<E> extends Set<E> {
-
+public interface SortedSet<E> extends Set<E>
+{
     /**
      * Grąžinamas aibės poaibis iki elemento data.
      *

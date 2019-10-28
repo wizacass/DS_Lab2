@@ -9,7 +9,6 @@ import java.util.stream.Stream;
 
 public class CarsGenerator
 {
-
     private int startIndex = 0, lastIndex = 0;
     private boolean isStart = true;
 

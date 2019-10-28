@@ -11,7 +11,6 @@ import java.util.Locale;
  */
 public class DemoExecution extends Application
 {
-
     public static void main(String[] args)
     {
         DemoExecution.launch(args);

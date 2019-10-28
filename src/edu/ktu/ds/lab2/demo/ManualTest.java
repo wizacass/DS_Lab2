@@ -13,7 +13,6 @@ import java.util.Locale;
  */
 public class ManualTest
 {
-
     static Car[] cars;
     static ParsableSortedSet<Car> cSeries = new ParsableBstSet<>(Car::new, Car.byPrice);
 

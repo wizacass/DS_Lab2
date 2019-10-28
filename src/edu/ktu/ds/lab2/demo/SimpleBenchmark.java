@@ -11,7 +11,6 @@ import java.util.concurrent.Semaphore;
 
 public class SimpleBenchmark
 {
-
     public static final String FINISH_COMMAND = "                       ";
     private static final ResourceBundle MESSAGES = ResourceBundle.getBundle("edu.ktu.ds.lab2.gui.messages");
 

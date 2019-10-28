@@ -14,8 +14,8 @@ import java.util.stream.Collectors;
 /**
  * @author darius
  */
-public class Panels extends GridPane {
-
+public class Panels extends GridPane
+{
     private final static int SPACING = 4;
     private final List<TextField> tfs = new ArrayList<>();
     private final List<Button> btns = new ArrayList<>();
@@ -39,14 +39,17 @@ public class Panels extends GridPane {
      * @param tfTexts
      * @param columnWidth
      */
-    public Panels(String[] lblTexts, String[] tfTexts, int columnWidth) {
+    public Panels(String[] lblTexts, String[] tfTexts, int columnWidth)
+    {
         super();
 
-        if (lblTexts == null || tfTexts == null) {
+        if (lblTexts == null || tfTexts == null)
+        {
             throw new IllegalArgumentException("Arguments for table of parameters are incorrect");
         }
 
-        if (lblTexts.length > tfTexts.length) {
+        if (lblTexts.length > tfTexts.length)
+        {
             tfTexts = Arrays.copyOf(tfTexts, lblTexts.length);
             Arrays.fill(tfTexts, "");
         }
@@ -74,10 +77,12 @@ public class Panels extends GridPane {
      * @param gridX
      * @param gridY
      */
-    public Panels(String[] btnNames, int gridX, int gridY) {
+    public Panels(String[] btnNames, int gridX, int gridY)
+    {
         super();
 
-        if (btnNames == null || gridX < 1 || gridY < 1) {
+        if (btnNames == null || gridX < 1 || gridY < 1)
+        {
             throw new IllegalArgumentException("Arguments for buttons grid are incorrect");
         }
 
@@ -85,19 +90,23 @@ public class Panels extends GridPane {
         initGridOfButtons(gridX, gridY, btnNames);
     }
 
-    private void paneLayout() {
+    private void paneLayout()
+    {
         setAlignment(Pos.CENTER);
         setHgap(SPACING);
         setVgap(SPACING);
         setPadding(new Insets(SPACING));
     }
 
-    private void initTableOfParameters(int columnWidth, String[] lblTexts, String[] tfTexts) {
-        for (int i = 0; i < lblTexts.length; i++) {
+    private void initTableOfParameters(int columnWidth, String[] lblTexts, String[] tfTexts)
+    {
+        for (int i = 0; i < lblTexts.length; i++)
+        {
             add(new Label(lblTexts[i]), 0, i);
         }
 
-        for (int i = 0; i < tfTexts.length; i++) {
+        for (int i = 0; i < tfTexts.length; i++)
+        {
             TextField tf = new TextField(tfTexts[i]);
             tf.setPrefWidth(columnWidth);
             tf.setAlignment(Pos.CENTER);
@@ -106,11 +115,15 @@ public class Panels extends GridPane {
         }
     }
 
-    private void initGridOfButtons(int gridX, int gridY, String[] btnNames) {
+    private void initGridOfButtons(int gridX, int gridY, String[] btnNames)
+    {
         Queue<String> btnNamesQueue = new LinkedList<>(Arrays.asList(btnNames));
-        for (int i = 0; i < gridY; i++) {
-            for (int j = 0; j < gridX; j++) {
-                if (btnNamesQueue.isEmpty()) {
+        for (int i = 0; i < gridY; i++)
+        {
+            for (int j = 0; j < gridX; j++)
+            {
+                if (btnNamesQueue.isEmpty())
+                {
                     break;
                 }
                 Button button = new Button(btnNamesQueue.poll());
@@ -126,7 +139,8 @@ public class Panels extends GridPane {
      *
      * @return Gražinamas lentelės laukelių reikšmių sąrašas
      */
-    public List<String> getParametersOfTable() {
+    public List<String> getParametersOfTable()
+    {
         return tfs.stream().map(TextInputControl::getText).collect(Collectors.toList());
     }
 
@@ -135,7 +149,8 @@ public class Panels extends GridPane {
      *
      * @return Gražinamas parametrų lentelės TextField objektų sąrašas
      */
-    public List<TextField> getTfOfTable() {
+    public List<TextField> getTfOfTable()
+    {
         return tfs;
     }
 
@@ -144,7 +159,8 @@ public class Panels extends GridPane {
      *
      * @return Gražinamas mygtukų tinklelio Button objektų sąrašas
      */
-    public List<Button> getButtons() {
+    public List<Button> getButtons()
+    {
         return btns;
     }
 }

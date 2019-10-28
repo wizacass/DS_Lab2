@@ -11,12 +11,11 @@ import java.util.Stack;
  * @param <E> Aibės elemento tipas. Turi tenkinti interfeisą Comparable<E>, arba
  *            per klasės konstruktorių turi būti paduodamas Comparator<E> interfeisą
  *            tenkinantis objektas.
- * 
  * @author darius.matulis@ktu.lt
  * @užduotis Peržiūrėkite ir išsiaiškinkite pateiktus metodus.
  */
-public class BstSet<E extends Comparable<E>> implements SortedSet<E>, Cloneable {
-
+public class BstSet<E extends Comparable<E>> implements SortedSet<E>, Cloneable
+{
     // Medžio šaknies mazgas
     protected BstNode<E> root = null;
     // Medžio dydis
@@ -27,7 +26,8 @@ public class BstSet<E extends Comparable<E>> implements SortedSet<E>, Cloneable 
     /**
      * Sukuriamas aibės objektas DP-medžio raktams naudojant Comparable<E>
      */
-    public BstSet() {
+    public BstSet()
+    {
         this.c = Comparator.naturalOrder();
     }
 
@@ -36,7 +36,8 @@ public class BstSet<E extends Comparable<E>> implements SortedSet<E>, Cloneable 
      *
      * @param c Komparatorius
      */
-    public BstSet(Comparator<? super E> c) {
+    public BstSet(Comparator<? super E> c)
+    {
         this.c = c;
     }
 
@@ -46,7 +47,8 @@ public class BstSet<E extends Comparable<E>> implements SortedSet<E>, Cloneable 
      * @return Grąžinama true, jei aibė tuščia.
      */
     @Override
-    public boolean isEmpty() {
+    public boolean isEmpty()
+    {
         return root == null;
     }
 
@@ -54,7 +56,8 @@ public class BstSet<E extends Comparable<E>> implements SortedSet<E>, Cloneable 
      * @return Grąžinamas aibėje esančių elementų kiekis.
      */
     @Override
-    public int size() {
+    public int size()
+    {
         return size;
     }
 
@@ -62,7 +65,8 @@ public class BstSet<E extends Comparable<E>> implements SortedSet<E>, Cloneable 
      * Išvaloma aibė.
      */
     @Override
-    public void clear() {
+    public void clear()
+    {
         root = null;
         size = 0;
     }
@@ -74,8 +78,10 @@ public class BstSet<E extends Comparable<E>> implements SortedSet<E>, Cloneable 
      * @return Grąžinama true, jei aibėje egzistuoja elementas.
      */
     @Override
-    public boolean contains(E element) {
-        if (element == null) {
+    public boolean contains(E element)
+    {
+        if (element == null)
+        {
             throw new IllegalArgumentException("Element is null in contains(E element)");
         }
 
@@ -88,25 +94,32 @@ public class BstSet<E extends Comparable<E>> implements SortedSet<E>, Cloneable 
      * @param element - Aibės elementas.
      */
     @Override
-    public void add(E element) {
-        if (element == null) {
+    public void add(E element)
+    {
+        if (element == null)
+        {
             throw new IllegalArgumentException("Element is null in add(E element)");
         }
 
         root = addRecursive(element, root);
     }
 
-    private BstNode<E> addRecursive(E element, BstNode<E> node) {
-        if (node == null) {
+    private BstNode<E> addRecursive(E element, BstNode<E> node)
+    {
+        if (node == null)
+        {
             size++;
             return new BstNode<>(element);
         }
 
         int cmp = c.compare(element, node.element);
 
-        if (cmp < 0) {
+        if (cmp < 0)
+        {
             node.left = addRecursive(element, node.left);
-        } else if (cmp > 0) {
+        }
+        else if (cmp > 0)
+        {
             node.right = addRecursive(element, node.right);
         }
 
@@ -119,26 +132,35 @@ public class BstSet<E extends Comparable<E>> implements SortedSet<E>, Cloneable 
      * @param element - Aibės elementas.
      */
     @Override
-    public void remove(E element) {
-        if (element == null) {
+    public void remove(E element)
+    {
+        if (element == null)
+        {
             throw new IllegalArgumentException("Element is null in remove(E element)");
         }
 
         root = removeRecursive(element, root);
     }
 
-    private BstNode<E> removeRecursive(E element, BstNode<E> node) {
-        if (node == null) {
+    private BstNode<E> removeRecursive(E element, BstNode<E> node)
+    {
+        if (node == null)
+        {
             return node;
         }
         // Medyje ieškomas šalinamas elemento mazgas;
         int cmp = c.compare(element, node.element);
 
-        if (cmp < 0) {
+        if (cmp < 0)
+        {
             node.left = removeRecursive(element, node.left);
-        } else if (cmp > 0) {
+        }
+        else if (cmp > 0)
+        {
             node.right = removeRecursive(element, node.right);
-        } else if (node.left != null && node.right != null) {
+        }
+        else if (node.left != null && node.right != null)
+        {
             /* Atvejis kai šalinamas elemento mazgas turi abu vaikus.
              Ieškomas didžiausio rakto elemento mazgas kairiajame pomedyje.
              Galima kita realizacija kai ieškomas mažiausio rakto
@@ -154,7 +176,9 @@ public class BstSet<E extends Comparable<E>> implements SortedSet<E>, Cloneable 
             node.left = removeMax(node.left);
             size--;
             // Kiti atvejai
-        } else {
+        }
+        else
+        {
             node = (node.left != null) ? node.left : node.right;
             size--;
         }
@@ -162,20 +186,28 @@ public class BstSet<E extends Comparable<E>> implements SortedSet<E>, Cloneable 
         return node;
     }
 
-    private E get(E element) {
-        if (element == null) {
+    private E get(E element)
+    {
+        if (element == null)
+        {
             throw new IllegalArgumentException("Element is null in get(E element)");
         }
 
         BstNode<E> node = root;
-        while (node != null) {
+        while (node != null)
+        {
             int cmp = c.compare(element, node.element);
 
-            if (cmp < 0) {
+            if (cmp < 0)
+            {
                 node = node.left;
-            } else if (cmp > 0) {
+            }
+            else if (cmp > 0)
+            {
                 node = node.right;
-            } else {
+            }
+            else
+            {
                 return node.element;
             }
         }
@@ -189,13 +221,19 @@ public class BstSet<E extends Comparable<E>> implements SortedSet<E>, Cloneable 
      * @param node
      * @return
      */
-    BstNode<E> removeMax(BstNode<E> node) {
-        if (node == null) {
+    BstNode<E> removeMax(BstNode<E> node)
+    {
+        if (node == null)
+        {
             return null;
-        } else if (node.right != null) {
+        }
+        else if (node.right != null)
+        {
             node.right = removeMax(node.right);
             return node;
-        } else {
+        }
+        else
+        {
             return node.left;
         }
     }
@@ -206,7 +244,8 @@ public class BstSet<E extends Comparable<E>> implements SortedSet<E>, Cloneable 
      * @param node
      * @return
      */
-    BstNode<E> getMax(BstNode<E> node) {
+    BstNode<E> getMax(BstNode<E> node)
+    {
         return get(node, true);
     }
 
@@ -216,13 +255,16 @@ public class BstSet<E extends Comparable<E>> implements SortedSet<E>, Cloneable 
      * @param node
      * @return
      */
-    BstNode<E> getMin(BstNode<E> node) {
+    BstNode<E> getMin(BstNode<E> node)
+    {
         return get(node, false);
     }
 
-    private BstNode<E> get(BstNode<E> node, boolean findMax) {
+    private BstNode<E> get(BstNode<E> node, boolean findMax)
+    {
         BstNode<E> parent = null;
-        while (node != null) {
+        while (node != null)
+        {
             parent = node;
             node = (findMax) ? node.right : node.left;
         }
@@ -235,10 +277,12 @@ public class BstSet<E extends Comparable<E>> implements SortedSet<E>, Cloneable 
      * @return Grąžinamas aibės elementų masyvas.
      */
     @Override
-    public Object[] toArray() {
+    public Object[] toArray()
+    {
         int i = 0;
         Object[] array = new Object[size];
-        for (Object o : this) {
+        for (Object o : this)
+        {
             array[i++] = o;
         }
         return array;
@@ -251,9 +295,11 @@ public class BstSet<E extends Comparable<E>> implements SortedSet<E>, Cloneable 
      * @return elementų eilutė
      */
     @Override
-    public String toString() {
+    public String toString()
+    {
         StringBuilder sb = new StringBuilder();
-        for (E element : this) {
+        for (E element : this)
+        {
             sb.append(element.toString()).append(System.lineSeparator());
         }
         return sb.toString();
@@ -278,14 +324,17 @@ public class BstSet<E extends Comparable<E>> implements SortedSet<E>, Cloneable 
      * @author E. Karčiauskas
      */
     @Override
-    public String toVisualizedString(String dataCodeDelimiter) {
+    public String toVisualizedString(String dataCodeDelimiter)
+    {
         horizontal = term[0] + term[0];
         return root == null ? ">" + horizontal
                 : toTreeDraw(root, ">", "", dataCodeDelimiter);
     }
 
-    private String toTreeDraw(BstNode<E> node, String edge, String indent, String dataCodeDelimiter) {
-        if (node == null) {
+    private String toTreeDraw(BstNode<E> node, String edge, String indent, String dataCodeDelimiter)
+    {
+        if (node == null)
+        {
             return "";
         }
         String step = (edge.equals(leftEdge)) ? vertical : "   ";
@@ -300,9 +349,11 @@ public class BstSet<E extends Comparable<E>> implements SortedSet<E>, Cloneable 
         return sb.toString();
     }
 
-    private String split(String s, String dataCodeDelimiter) {
+    private String split(String s, String dataCodeDelimiter)
+    {
         int k = s.indexOf(dataCodeDelimiter);
-        if (k <= 0) {
+        if (k <= 0)
+        {
             return s;
         }
         return s.substring(0, k);
@@ -315,9 +366,11 @@ public class BstSet<E extends Comparable<E>> implements SortedSet<E>, Cloneable 
      * @throws java.lang.CloneNotSupportedException
      */
     @Override
-    public Object clone() throws CloneNotSupportedException {
+    public Object clone() throws CloneNotSupportedException
+    {
         BstSet<E> cl = (BstSet<E>) super.clone();
-        if (root == null) {
+        if (root == null)
+        {
             return cl;
         }
         cl.root = cloneRecursive(root);
@@ -325,8 +378,10 @@ public class BstSet<E extends Comparable<E>> implements SortedSet<E>, Cloneable 
         return cl;
     }
 
-    private BstNode<E> cloneRecursive(BstNode<E> node) {
-        if (node == null) {
+    private BstNode<E> cloneRecursive(BstNode<E> node)
+    {
+        if (node == null)
+        {
             return null;
         }
 
@@ -343,7 +398,9 @@ public class BstSet<E extends Comparable<E>> implements SortedSet<E>, Cloneable 
      * @return Grąžinamas aibės poaibis iki elemento.
      */
     @Override
-    public Set<E> headSet(E element) {
+    public Set<E> headSet(E element)
+    {
+        //TODO: Implement headSet()
         throw new UnsupportedOperationException("Studentams reikia realizuoti headSet()");
     }
 
@@ -355,7 +412,9 @@ public class BstSet<E extends Comparable<E>> implements SortedSet<E>, Cloneable 
      * @return Grąžinamas aibės poaibis nuo elemento element1 iki element2.
      */
     @Override
-    public Set<E> subSet(E element1, E element2) {
+    public Set<E> subSet(E element1, E element2)
+    {
+        //TODO: Implement subSet()
         throw new UnsupportedOperationException("Studentams reikia realizuoti subSet()");
     }
 
@@ -366,7 +425,9 @@ public class BstSet<E extends Comparable<E>> implements SortedSet<E>, Cloneable 
      * @return Grąžinamas aibės poaibis nuo elemento.
      */
     @Override
-    public Set<E> tailSet(E element) {
+    public Set<E> tailSet(E element)
+    {
+        //TODO: Implement tailSet()
         throw new UnsupportedOperationException("Studentams reikia realizuoti tailSet()");
     }
 
@@ -376,7 +437,8 @@ public class BstSet<E extends Comparable<E>> implements SortedSet<E>, Cloneable 
      * @return Grąžinamas tiesioginis iteratorius.
      */
     @Override
-    public Iterator<E> iterator() {
+    public Iterator<E> iterator()
+    {
         return new IteratorBst(true);
     }
 
@@ -386,7 +448,8 @@ public class BstSet<E extends Comparable<E>> implements SortedSet<E>, Cloneable 
      * @return Grąžinamas atvirkštinis iteratorius.
      */
     @Override
-    public Iterator<E> descendingIterator() {
+    public Iterator<E> descendingIterator()
+    {
         return new IteratorBst(false);
     }
 
@@ -396,27 +459,31 @@ public class BstSet<E extends Comparable<E>> implements SortedSet<E>, Cloneable 
      * vidine (angl. inorder) tvarka. Visi aplankyti elementai saugomi steke.
      * Stekas panaudotas iš java.util paketo, bet galima susikurti nuosavą.
      */
-    private class IteratorBst implements Iterator<E> {
-
+    private class IteratorBst implements Iterator<E>
+    {
         private Stack<BstNode<E>> stack = new Stack<>();
         // Nurodo iteravimo kolekcija kryptį, true - didėjimo tvarka, false - mažėjimo
         private boolean ascending;
         // Nurodo einamojo medžio elemento tėvą. Reikalingas šalinimui.
         private BstNode<E> parent = root;
 
-        IteratorBst(boolean ascendingOrder) {
+        IteratorBst(boolean ascendingOrder)
+        {
             this.ascending = ascendingOrder;
             this.toStack(root);
         }
 
         @Override
-        public boolean hasNext() {
+        public boolean hasNext()
+        {
             return !stack.empty();
         }
 
         @Override
-        public E next() {
-            if (!stack.empty()) {
+        public E next()
+        {
+            if (!stack.empty())
+            {
                 // Grąžinamas paskutinis į steką patalpintas elementas
                 BstNode<E> n = stack.pop();
                 // Atsimenama tėvo viršunė. Reikia remove() metodui
@@ -426,18 +493,24 @@ public class BstSet<E extends Comparable<E>> implements SortedSet<E>, Cloneable 
                 // o visi paieškos kelyje esantys elementai talpinami į steką
                 toStack(node);
                 return n.element;
-            } else { // Jei stekas tuščias
+            }
+            else
+            { // Jei stekas tuščias
                 return null;
             }
         }
 
         @Override
-        public void remove() {
+        public void remove()
+        {
+            //TODO: Implement remove() 
             throw new UnsupportedOperationException("Studentams reikia realizuoti remove()");
         }
 
-        private void toStack(BstNode<E> n) {
-            while (n != null) {
+        private void toStack(BstNode<E> n)
+        {
+            while (n != null)
+            {
                 stack.push(n);
                 n = (ascending) ? n.left : n.right;
             }
@@ -449,8 +522,8 @@ public class BstSet<E extends Comparable<E>> implements SortedSet<E>, Cloneable 
      *
      * @param <N> mazgo elemento duomenų tipas
      */
-    protected class BstNode<N> {
-
+    protected class BstNode<N>
+    {
         // Elementas
         protected N element;
         // Rodyklė į kairįjį pomedį
@@ -458,10 +531,10 @@ public class BstSet<E extends Comparable<E>> implements SortedSet<E>, Cloneable 
         // Rodyklė į dešinįjį pomedį
         protected BstNode<N> right;
 
-        protected BstNode() {
-        }
+        protected BstNode() { }
 
-        protected BstNode(N element) {
+        protected BstNode(N element)
+        {
             this.element = element;
             this.left = null;
             this.right = null;

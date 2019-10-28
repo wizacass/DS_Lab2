@@ -1,6 +1,7 @@
 package edu.ktu.ds.lab2.gui;
 
 import java.util.ResourceBundle;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Menu;
@@ -12,18 +13,19 @@ import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 
 /**
- *
  * @author darius
  */
-public abstract class MainWindowMenu extends MenuBar implements EventHandler<ActionEvent> {
-
+public abstract class MainWindowMenu extends MenuBar implements EventHandler<ActionEvent>
+{
     private static final ResourceBundle MESSAGES = ResourceBundle.getBundle("edu.ktu.ds.lab2.gui.messages");
 
-    public MainWindowMenu() {
+    public MainWindowMenu()
+    {
         initComponents();
     }
 
-    private void initComponents() {
+    private void initComponents()
+    {
         // Sukuriamas meniu      
         Menu menu1 = new Menu(MESSAGES.getString("menu1"));
         MenuItem menuItem11 = new MenuItem(MESSAGES.getString("menuItem11"));

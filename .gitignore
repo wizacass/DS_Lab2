@@ -95,3 +95,7 @@ fabric.properties
 # NetBeans project file
 .nbproject
 .nbproject/*
+
+# MacOS
+.DS_Store
+./**/.DS_Store
