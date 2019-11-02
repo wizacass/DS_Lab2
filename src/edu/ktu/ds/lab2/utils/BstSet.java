@@ -41,6 +41,110 @@ public class BstSet<E extends Comparable<E>> implements SortedSet<E>, Cloneable
         this.c = c;
     }
 
+    public boolean addAll(BstSet<? extends E> c)
+    {
+        try
+        {
+            for (var element : c)
+            {
+                this.add(element);
+            }
+        }
+        catch (Exception ex)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean removeAll(BstSet<?> c)
+    {
+        try
+        {
+            for (var element : c)
+            {
+                this.remove((E) element);
+            }
+        }
+        catch (Exception ex)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    public BstSet<E> headSet(E toElement, boolean inclusive)
+    {
+        BstSet<E> set = new BstSet<E>();
+
+        for (var element : this)
+        {
+            if (inclusive)
+            {
+                if (element.compareTo(toElement) <= 0)
+                {
+                    set.add(element);
+                }
+            }
+            else
+            {
+                if (element.compareTo(toElement) < 0)
+                {
+                    set.add(element);
+                }
+            }
+        }
+
+        return set;
+    }
+
+    public E higher(E e)
+    {
+        if (e == null)
+        {
+            return null;
+        }
+
+        for (var element: this)
+        {
+            if (element.compareTo(e) > 0)
+            {
+                return element;
+            }
+        }
+
+        return null;
+    }
+
+    public E last()
+    {
+        if (root == null || size == 0)
+        {
+            return null;
+        }
+
+        var max = root.element;
+
+        for (var element: this)
+        {
+            if (element.compareTo(max) > 0)
+            {
+                max = element;
+            }
+        }
+
+        return max;
+    }
+
+    public E pollLast()
+    {
+        var element = last();
+        this.remove(element);
+        return element;
+    }
+
     /**
      * Patikrinama ar aibė tuščia.
      *
@@ -327,8 +431,15 @@ public class BstSet<E extends Comparable<E>> implements SortedSet<E>, Cloneable
     public String toVisualizedString(String dataCodeDelimiter)
     {
         horizontal = term[0] + term[0];
-        return root == null ? ">" + horizontal
-                : toTreeDraw(root, ">", "", dataCodeDelimiter);
+
+        if (root == null)
+        {
+            return ">" + horizontal;
+        }
+        else
+        {
+            return toTreeDraw(root, ">", "", dataCodeDelimiter);
+        }
     }
 
     private String toTreeDraw(BstNode<E> node, String edge, String indent, String dataCodeDelimiter)
@@ -337,15 +448,25 @@ public class BstSet<E extends Comparable<E>> implements SortedSet<E>, Cloneable
         {
             return "";
         }
+
         String step = (edge.equals(leftEdge)) ? vertical : "   ";
         StringBuilder sb = new StringBuilder();
         sb.append(toTreeDraw(node.right, rightEdge, indent + step, dataCodeDelimiter));
+
         int t = (node.right != null) ? 1 : 0;
         t = (node.left != null) ? t + 2 : t;
-        sb.append(indent).append(edge).append(horizontal).append(term[t]).append(endEdge).append(
-                split(node.element.toString(), dataCodeDelimiter)).append(System.lineSeparator());
+
+        sb.append(indent)
+                .append(edge)
+                .append(horizontal)
+                .append(term[t])
+                .append(endEdge)
+                .append(split(node.element.toString(), dataCodeDelimiter))
+                .append(System.lineSeparator());
+
         step = (edge.equals(rightEdge)) ? vertical : "   ";
         sb.append(toTreeDraw(node.left, leftEdge, indent + step, dataCodeDelimiter));
+
         return sb.toString();
     }
 
