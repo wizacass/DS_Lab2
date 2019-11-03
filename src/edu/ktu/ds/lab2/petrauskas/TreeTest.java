@@ -75,6 +75,7 @@ public class TreeTest
         }
         System.out.println();
         Ks.oun("Total: " + tree.size());
+        Ks.oun("Height: " + tree.height());
     }
 
     public static void main(String... args)

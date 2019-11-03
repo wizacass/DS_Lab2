@@ -145,6 +145,29 @@ public class BstSet<E extends Comparable<E>> implements SortedSet<E>, Cloneable
         return element;
     }
 
+    public int height()
+    {
+        if (root == null || size == 0)
+        {
+            return 0;
+        }
+
+        return treeHeightRec(root);
+    }
+
+    private int treeHeightRec(BstNode<E> node)
+    {
+        if (node == null)
+        {
+            return 0;
+        }
+
+        int lDepth = treeHeightRec(node.left);
+        int rDepth = treeHeightRec(node.right);
+
+        return lDepth > rDepth ? lDepth + 1 : rDepth + 1;
+    }
+
     /**
      * Patikrinama ar aibė tuščia.
      *
