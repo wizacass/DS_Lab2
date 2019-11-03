@@ -14,7 +14,6 @@ import java.util.Comparator;
 public class AvlSet<E extends Comparable<E>> extends BstSet<E>
         implements SortedSet<E>
 {
-
     public AvlSet() { }
 
     public AvlSet(Comparator<? super E> c)
@@ -83,12 +82,52 @@ public class AvlSet<E extends Comparable<E>> extends BstSet<E>
     @Override
     public void remove(E element)
     {
-        throw new UnsupportedOperationException("Studentams reikia realizuoti remove(E element)");
+        root = removeRecursive(element, (AVLNode<E>) root);
     }
 
     private AVLNode<E> removeRecursive(E element, AVLNode<E> n)
     {
-        throw new UnsupportedOperationException("Studentams reikia realizuoti removeRecursive(E element, AVLNode<E> n)");
+        if (n == null)
+        {
+            return n;   // Item not found; do nothing
+        }
+
+        int compareResult = element.compareTo(n.element);
+
+        if (compareResult < 0)
+        {
+            n.left = removeRecursive(element, n.getLeft());
+        }
+        else if (compareResult > 0)
+        {
+            n.right = removeRecursive(element, n.getRight());
+        }
+        else if (n.left != null && n.right != null) // Two children
+        {
+            n.element = findMin(n.getRight()).element;
+            n.right = removeRecursive(n.element, n.getRight());
+        }
+        else
+        {
+            n = (n.getLeft() != null) ? n.getLeft() : n.getRight();
+        }
+
+        return n;
+    }
+
+    private AVLNode<E> findMin(AVLNode<E> t)
+    {
+        if (t == null)
+        {
+            return t;
+        }
+
+        while (t.getLeft() != null)
+        {
+            t = t.getLeft();
+        }
+
+        return t;
     }
 
     // Papildomi privatūs metodai, naudojami operacijų su aibe realizacijai

@@ -107,7 +107,7 @@ public class BstSet<E extends Comparable<E>> implements SortedSet<E>, Cloneable
             return null;
         }
 
-        for (var element: this)
+        for (var element : this)
         {
             if (element.compareTo(e) > 0)
             {
@@ -127,7 +127,7 @@ public class BstSet<E extends Comparable<E>> implements SortedSet<E>, Cloneable
 
         var max = root.element;
 
-        for (var element: this)
+        for (var element : this)
         {
             if (element.compareTo(max) > 0)
             {
@@ -544,8 +544,17 @@ public class BstSet<E extends Comparable<E>> implements SortedSet<E>, Cloneable
     @Override
     public Set<E> headSet(E element)
     {
-        //TODO: Implement headSet()
-        throw new UnsupportedOperationException("Studentams reikia realizuoti headSet()");
+        Set<E> set = new BstSet<E>();
+
+        for (var e : this)
+        {
+            if (e.compareTo(element) < 0)
+            {
+                set.add(e);
+            }
+        }
+
+        return set;
     }
 
     /**
@@ -558,8 +567,17 @@ public class BstSet<E extends Comparable<E>> implements SortedSet<E>, Cloneable
     @Override
     public Set<E> subSet(E element1, E element2)
     {
-        //TODO: Implement subSet()
-        throw new UnsupportedOperationException("Studentams reikia realizuoti subSet()");
+        Set<E> set = new BstSet<E>();
+
+        for (var e : this)
+        {
+            if (e.compareTo(element1) < 0 && e.compareTo(element2) > 0)
+            {
+                set.add(e);
+            }
+        }
+
+        return set;
     }
 
     /**
@@ -571,8 +589,17 @@ public class BstSet<E extends Comparable<E>> implements SortedSet<E>, Cloneable
     @Override
     public Set<E> tailSet(E element)
     {
-        //TODO: Implement tailSet()
-        throw new UnsupportedOperationException("Studentams reikia realizuoti tailSet()");
+        Set<E> set = new BstSet<E>();
+
+        for (var e : this)
+        {
+            if (e.compareTo(element) > 0)
+            {
+                set.add(e);
+            }
+        }
+
+        return set;
     }
 
     /**
