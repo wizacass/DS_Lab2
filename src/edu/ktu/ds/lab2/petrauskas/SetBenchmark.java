@@ -20,6 +20,8 @@ public class SetBenchmark
 
     private TreeSet<Integer> treeSet;
     private HashSet<Integer> hashSet;
+    private TreeSet<Integer> smallTree;
+    private HashSet<Integer> smallHash;
     private Random rnd;
 
     public SetBenchmark()
@@ -28,6 +30,8 @@ public class SetBenchmark
 
         treeSet = new TreeSet<>();
         hashSet = new HashSet<>();
+        smallTree = new TreeSet<>();
+        smallHash = new HashSet<>();
         rnd = new Random(2017);
 
         errors = new String[]{
@@ -53,7 +57,6 @@ public class SetBenchmark
         {
             ex.printStackTrace(System.out);
         }
-
     }
 
     private void benchmark() throws InterruptedException
@@ -74,6 +77,12 @@ public class SetBenchmark
 
                 hashSet.contains(number);
                 timeKeeper.finish("Hash");
+
+                treeSet.containsAll(smallTree);
+                timeKeeper.finish("sTree");
+
+                hashSet.containsAll(smallHash);
+                timeKeeper.finish("sHash");
 
                 timeKeeper.seriesFinish();
             }
@@ -109,6 +118,13 @@ public class SetBenchmark
             int number = rnd.nextInt(maxBound);
             treeSet.add(number);
             hashSet.add(number);
+        }
+
+        for (int i = 0; i < count / 100; i++)
+        {
+            int number = rnd.nextInt(maxBound);
+            smallTree.add(number);
+            smallHash.add(number);
         }
     }
 
