@@ -22,6 +22,7 @@ public class SetBenchmark
     private HashSet<Integer> hashSet;
     private TreeSet<Integer> smallTree;
     private HashSet<Integer> smallHash;
+    private int[] numbers;
     private Random rnd;
 
     public SetBenchmark()
@@ -67,21 +68,37 @@ public class SetBenchmark
             {
                 clear();
                 generate(count);
-                int number = rnd.nextInt(maxBound);
+                //int number = rnd.nextInt(maxBound);
                 timeKeeper.startAfterPause();
+
+                int randomNr = rnd.nextInt(maxBound);
+                treeSet.contains(randomNr);
+                hashSet.contains(randomNr);
 
                 timeKeeper.start();
 
-                treeSet.contains(number);
+                for (var number: numbers)
+                {
+                    treeSet.contains(number);
+                }
                 timeKeeper.finish("Tree");
 
-                hashSet.contains(number);
+                for (var number: numbers)
+                {
+                    hashSet.contains(number);
+                }
                 timeKeeper.finish("Hash");
 
-                treeSet.containsAll(smallTree);
+                for (var number: numbers)
+                {
+                    treeSet.containsAll(smallTree);
+                }
                 timeKeeper.finish("sTree");
 
-                hashSet.containsAll(smallHash);
+                for (var number: numbers)
+                {
+                    hashSet.containsAll(smallHash);
+                }
                 timeKeeper.finish("sHash");
 
                 timeKeeper.seriesFinish();
@@ -113,11 +130,16 @@ public class SetBenchmark
 
     private void generate(int count)
     {
+        numbers = new int[count];
+
         for (int i = 0; i < count; i++)
         {
             int number = rnd.nextInt(maxBound);
             treeSet.add(number);
             hashSet.add(number);
+
+            number = rnd.nextInt(maxBound);
+            numbers[i] = number;
         }
 
         for (int i = 0; i < count / 100; i++)
