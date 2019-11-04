@@ -168,6 +168,36 @@ public class BstSet<E extends Comparable<E>> implements SortedSet<E>, Cloneable
         return lDepth > rDepth ? lDepth + 1 : rDepth + 1;
     }
 
+    public E floor(E e)
+    {
+        if (root == null || size == 0)
+        {
+            return null;
+        }
+        return floor(root, e);
+    }
+
+    private E floor(BstNode<E> node, E e)
+    {
+        if(node == null)
+        {
+            return last();
+        }
+
+        if (node.element.compareTo(e) == 0)
+        {
+            return node.element;
+        }
+
+        if (node.element.compareTo(e) > 0)
+        {
+            return floor(node.left, e);
+        }
+
+        E floorValue = floor(node.right, e);
+        return (floorValue.compareTo(e) <= 0) ? floorValue : node.element;
+    }
+
     /**
      * Patikrinama ar aibė tuščia.
      *

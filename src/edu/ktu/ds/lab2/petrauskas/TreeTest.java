@@ -53,6 +53,17 @@ public class TreeTest
         Ks.oun("Last element is: " + mainTree.last());
         var removedLast = mainTree.pollLast();
         printTree(mainTree, "Remove Last");
+
+        var floorBound = rnd.nextInt(maxBound);
+        try
+        {
+            var floorValue = mainTree.floor(floorBound);
+            Ks.oun("Floor value of " + floorBound + " is " + floorValue);
+        }
+        catch (NullPointerException ex)
+        {
+            Ks.ern("No value below " + floorBound);
+        }
     }
 
     private void addElements(BstSet<Integer> tree, int count)
