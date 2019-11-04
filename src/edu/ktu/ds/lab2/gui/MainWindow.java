@@ -3,6 +3,8 @@ package edu.ktu.ds.lab2.gui;
 import edu.ktu.ds.lab2.demo.Car;
 import edu.ktu.ds.lab2.demo.CarsGenerator;
 import edu.ktu.ds.lab2.demo.SimpleBenchmark;
+import edu.ktu.ds.lab2.petrauskas.SetBenchmark;
+import edu.ktu.ds.lab2.petrauskas.TreeTest;
 import edu.ktu.ds.lab2.utils.ParsableAvlSet;
 import edu.ktu.ds.lab2.utils.ParsableBstSet;
 import edu.ktu.ds.lab2.utils.ParsableSortedSet;
@@ -335,12 +337,13 @@ public class MainWindow extends BorderPane implements EventHandler<ActionEvent>
         {
             treeRemove();
         }
-        else if (source.equals(paneButtons.getButtons().get(5))
-                || source.equals(paneButtons.getButtons().get(6)))
+        else if (source.equals(paneButtons.getButtons().get(5)))
         {
-            KsGui.setFormatStartOfLine(true);
-            KsGui.ounerr(taOutput, MESSAGES.getString("notImplemented"));
-            KsGui.setFormatStartOfLine(false);
+            new SetBenchmark().run();
+        }
+        else if (source.equals(paneButtons.getButtons().get(6)))
+        {
+            new TreeTest().run();
         }
     }
 

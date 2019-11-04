@@ -13,7 +13,7 @@ public class TreeTest
 
     private static final int maxBound = 128;
 
-    private TreeTest()
+    public TreeTest()
     {
         mainTree = new BstSet<>();
         anotherTree = new BstSet<>();
@@ -21,7 +21,7 @@ public class TreeTest
         rnd.setSeed(2017);
     }
 
-    private void run()
+    public void run()
     {
         Ks.oun("Tree test starting...");
 
