@@ -68,7 +68,6 @@ public class SetBenchmark
             {
                 clear();
                 generate(count);
-                //int number = rnd.nextInt(maxBound);
                 timeKeeper.startAfterPause();
 
                 int randomNr = rnd.nextInt(maxBound);
